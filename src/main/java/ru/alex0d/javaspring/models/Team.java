@@ -1,5 +1,6 @@
 package ru.alex0d.javaspring.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "teams")
@@ -26,4 +28,8 @@ public class Team {
 
     @Column(name = "creation_date")
     private LocalDate creationDate;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "team")
+    private List<Footballer> footballers;
 }

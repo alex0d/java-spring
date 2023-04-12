@@ -24,4 +24,8 @@ public class Footballer {
 
     @Column(name = "last_name")
     private String lastName;
+
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
 }

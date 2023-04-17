@@ -1,6 +1,11 @@
 package ru.alex0d.javaspring.services;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -8,6 +13,8 @@ import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
 import ru.alex0d.javaspring.models.Team;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -37,5 +44,31 @@ public class TeamService {
         Team team = session.get(Team.class, id);
         session.remove(team);
         transaction.commit();
+    }
+
+    public List<Team> filterTeams(Long id, String name, LocalDate creationDate) {
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Team> cq = cb.createQuery(Team.class);
+        Root<Team> root = cq.from(Team.class);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        if (id != null) {
+            predicates.add(cb.equal(root.get("id"), id));
+        }
+
+        if (name != null && !name.isEmpty()) {
+            predicates.add(cb.like(root.get("name"), "%" + name + "%"));
+        }
+
+        if (creationDate != null) {
+            predicates.add(cb.equal(root.get("creationDate"), creationDate));
+        }
+
+        cq.where(predicates.toArray(new Predicate[0]));
+
+        TypedQuery<Team> query = session.createQuery(cq);
+
+        return query.getResultList();
     }
 }

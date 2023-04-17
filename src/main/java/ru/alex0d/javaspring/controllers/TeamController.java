@@ -1,10 +1,12 @@
 package ru.alex0d.javaspring.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import ru.alex0d.javaspring.models.Team;
 import ru.alex0d.javaspring.services.TeamService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -18,8 +20,10 @@ public class TeamController {
     }
 
     @GetMapping
-    public List<Team> getAllTeams() {
-        return teamService.getAllTeams();
+    public List<Team> filterByAllFields(@RequestParam(required = false) Long id,
+                                        @RequestParam(required = false) String name,
+                                        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate creationDate) {
+        return teamService.filterTeams(id, name, creationDate);
     }
 
     @PostMapping

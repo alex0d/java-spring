@@ -1,4 +1,5 @@
-datasource:
-  jdbc_url: jdbc:postgresql://localhost:5432/java_spring
-  username: ${LOCAL_POSTGRESQL_USERNAME}
-  password: ${LOCAL_POSTGRESQL_PASSWORD}
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/java_spring
+    username: ${LOCAL_POSTGRESQL_USERNAME}
+    password: ${LOCAL_POSTGRESQL_PASSWORD}

@@ -28,4 +28,14 @@ public class Footballer {
     @ManyToOne
     @JoinColumn(name = "team_id")
     private Team team;
+
+    @Override
+    public String toString() {
+        return "Footballer{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", teamId=" + (team == null ? null : team.getId()) +
+                '}';
+    }
 }

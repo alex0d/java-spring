@@ -32,4 +32,18 @@ public class Team {
     @JsonIgnore
     @OneToMany(mappedBy = "team")
     private List<Footballer> footballers;
+
+    @Override
+    public String toString() {
+        List<Long> footballerIds = null;
+        if (footballers != null) {
+            footballerIds = footballers.stream().map(Footballer::getId).toList();
+        }
+        return "Team{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", creationDate=" + creationDate +
+                ", footballerIds=" + footballerIds +
+                '}';
+    }
 }

@@ -2,7 +2,9 @@ package ru.alex0d.javaspring.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.alex0d.javaspring.models.Team;
 import ru.alex0d.javaspring.repositories.TeamRepository;
 
@@ -14,17 +16,25 @@ import java.util.List;
 @Slf4j
 public class TeamService {
     private final TeamRepository teamRepository;
+    private final EmailService emailService;
 
+    @Value("${spring.mail.to}")
+    private String EMAIL;
+
+    @Transactional
     public void createTeam(Team team) {
-        log.info("Team created");
         teamRepository.save(team);
+        log.info("Team created");
+        emailService.sendEmail(EMAIL, "Team created", team.toString());
     }
 
+    @Transactional
     public void deleteTeamById(Long id) {
         log.info("Team deleted by id: " + id);
         teamRepository.deleteById(id);
     }
 
+    @Transactional(readOnly = true)
     public List<Team> filterTeams(Long id, String name, LocalDate creationDate) {
         if (id == null && name == null && creationDate == null) {
             log.info("Teams filtered by all null: returning all");

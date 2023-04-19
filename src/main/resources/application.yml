@@ -3,3 +3,17 @@ spring:
     url: jdbc:postgresql://localhost:5432/java_spring
     username: ${LOCAL_POSTGRESQL_USERNAME}
     password: ${LOCAL_POSTGRESQL_PASSWORD}
+
+  mail:
+    host: smtp.mail.ru
+    port: 465
+    username: ${SMTP_MAILRU_USERNAME}
+    password: ${SMTP_MAILRU_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
+          auth: true
+          from: ${SMTP_MAILRU_USERNAME}
+    to: ${SPRING_EMAIL_TO}

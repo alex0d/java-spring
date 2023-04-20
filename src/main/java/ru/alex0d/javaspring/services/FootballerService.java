@@ -35,6 +35,12 @@ public class FootballerService {
     }
 
     @Transactional(readOnly = true)
+    public List<Footballer> getAllFootballers() {
+        log.info("All footballers returned");
+        return footballerRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
     public List<Footballer> filterFootballers(Long id, String firstName, String lastName, Team team) {
         if (id == null && firstName == null && lastName == null && team == null) {
             log.info("Footballers filtered by all null: returning all");

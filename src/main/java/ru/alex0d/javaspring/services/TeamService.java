@@ -35,6 +35,12 @@ public class TeamService {
     }
 
     @Transactional(readOnly = true)
+    public List<Team> getAllTeams() {
+        log.info("All teams returned");
+        return teamRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
     public List<Team> filterTeams(Long id, String name, LocalDate creationDate) {
         if (id == null && name == null && creationDate == null) {
             log.info("Teams filtered by all null: returning all");

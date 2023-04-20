@@ -37,3 +37,4 @@ out/
 .vscode/
 
 /application.log
+/loaded_data/

@@ -33,6 +33,12 @@ public class Team {
     @OneToMany(mappedBy = "team")
     private List<Footballer> footballers;
 
+    public Team(long id, String name, LocalDate creationDate) {
+        this.id = id;
+        this.name = name;
+        this.creationDate = creationDate;
+    }
+
     @Override
     public String toString() {
         List<Long> footballerIds = null;

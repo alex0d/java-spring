@@ -1,4 +1,6 @@
 spring:
+  jpa:
+    generate-ddl: true
   datasource:
     url: jdbc:postgresql://localhost:5432/java_spring
     username: ${LOCAL_POSTGRESQL_USERNAME}

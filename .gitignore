@@ -38,3 +38,4 @@ out/
 
 /application.log
 /loaded_data/
+/application.*.gz
